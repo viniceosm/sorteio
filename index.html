@@ -1,0 +1,31 @@
+<html>
+    <body>
+        
+    </body>
+
+    <script>
+        var token = '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';
+        var content = 'vinicius;1';
+        
+        uploadFileApi(token, content);
+
+        function uploadFileApi(token, content) {
+            var data = JSON.stringify({
+                "message": "csv file",
+                "content": `${content}`
+            });
+
+            var config = {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: data
+            };
+
+            fetch('https://api.github.com/repos/viniceosm/sorteio/contents/abc.csv', config)
+                .then(response => response.json());
+        }
+    </script>
+</html>
