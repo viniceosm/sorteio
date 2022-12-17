@@ -1,4 +1,6 @@
 <html>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rest.js/15.2.4/octokit-rest.min.js" integrity="sha512-LfdKEbVdMsZhLSXKajtzVD6Br/F7OhsMP8fiWWtf7h3NNmVnbE3PIR1Q9CP0VYMEFtQ1RqNa30s19pcsh4Z88Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <body>
         
     </body>
@@ -9,8 +11,8 @@
         
         uploadFileApi(token, content);
 
-        function uploadFileApi(token, content) {
-            var data = JSON.stringify({
+        async function uploadFileApi(token, content) {
+            /*var data = JSON.stringify({
                 "message": "csv file",
                 "content": `${content}`
             });
@@ -25,7 +27,24 @@
             };
 
             fetch('https://api.github.com/repos/viniceosm/sorteio/contents/abc.csv', config)
-                .then(response => response.json());
+                .then(response => response.json());*/
+
+            const octokit = new Octokit({
+                auth: token
+            })
+
+            await octokit.request('PUT /repos/viniceosm/sorteio/contents/abc.csv', {
+                owner: 'viniceosm',
+                repo: 'sorteio',
+                path: 'abc',
+                message: 'Alterando database',
+                committer: {
+                    name: 'viniceosm',
+                    email: 'miiller.vini@gmail.com'
+                },
+                content: content
+            })
+
         }
     </script>
 </html>
